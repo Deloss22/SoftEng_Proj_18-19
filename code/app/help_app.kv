@@ -1,0 +1,209 @@
+#-*- coding: utf-8 -*-
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Factory kivy.factory.Factory
+
+ScreenManagement:
+    HomeScreen:
+    MenuScreen:
+
+<HomeScreen>:
+    name: "home"
+
+    FloatLayout:
+        Image:
+            source: 'fds.jpg'
+
+        Label:
+            text: "Smart Parking"
+            font_size: "50"
+            pos_hint: {"x":0, "y":0.4}
+
+        Label:
+            text: "Καλώς ήλθατε"
+            font_size: "30"
+            pos_hint: {"x":0, "y":0.34}
+
+        TextInput:
+            id: plate
+            hint_text: "Εισάγετε πινακίδα αυτοκινήτου."
+            size_hint: 0.60, 0.05
+            pos_hint: {"x":0.20, "y":0.67}
+            multiline: False
+            on_text: root.capplate(self.text)
+
+        TextInput:
+            hint_text: "Εισάγετε ονοματεπώνυμο."
+            size_hint: 0.60, 0.05
+            pos_hint: {"x":0.20, "y":0.6}
+            multiline: False
+            on_text: root.capname(self.text)
+
+        Button:
+            text: "Κράτηση!"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0.56, 0.07, 1)
+            size_hint: (0.25, 0.06)
+            pos_hint: {"x":0.38, "y":0.5}
+            on_release: Factory.reserv().open()
+
+        Button:
+            text: "Menu"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0.56, 0.07, 1)
+            size_hint: (0.08, 0.03)
+            pos_hint: {"x":0.03, "y":0.94}
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = "menu"
+
+
+
+
+<MenuScreen>:
+    name: "menu"
+
+    Image:
+        source: "fds.jpg"
+        color: (1, 1, 1, 0.5)
+
+    Button:
+        text: "Είσοδος"
+        color: (0, 0, 0, 1)
+        background_normal: ''
+        background_color: (1, 1, 1, 1)
+        size_hint: (0.45, 0.06)
+        pos_hint: {"x":0.28, "y":0.60}
+        on_release: Factory.loginp().open()
+
+    Button:
+        text: "Επικοινωνία με το Parking"
+        color: (0, 0, 0, 1)
+        background_normal: ''
+        background_color: (1, 1, 1, 1)
+        size_hint: (0.45, 0.06)
+        pos_hint: {"x":0.28, "y":0.5}
+        on_release:
+            Factory.cont().open()
+            # root.palist()
+
+    Button:
+        text: "Ιστορικό κρατήσεων"
+        color: (0, 0, 0, 1)
+        background_normal: ''
+        background_color: (1, 1, 1, 1)
+        size_hint: (0.45, 0.06)
+        pos_hint: {"x":0.28, "y":0.40}
+        on_release: Factory.hist().open()
+
+    Button:
+        text: "Back"
+        color: (0, 0, 0, 1)
+        background_normal: ''
+        background_color: (1, 0.56, 0.07, 1)
+        size_hint: (0.08, 0.03)
+        pos_hint: {"x":0.03, "y":0.94}
+        on_release:
+            root.manager.transition.direction = 'left'
+            root.manager.current = "home"
+
+
+<loginp>:
+    title: 'Login Page'
+    title_size: "20"
+    size_hint: (None, None)
+    size: (450, 550)
+
+    FloatLayout:
+
+        TextInput:
+            id: uname
+            hint_text: "Username"
+            size_hint: (0.60, 0.1)
+            pos_hint: {"x":0.20, "y":0.6}
+            multiline: False
+
+        TextInput:
+            id: pssw
+            hint_text: "Password"
+            size_hint: (0.60, 0.1)
+            pos_hint: {"x":0.20, "y":0.45}
+            password: True
+            multiline: False
+
+        Button:
+            text: "Login"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0.56, 0.07, 1)
+            size_hint: (0.4, 0.1)
+            pos_hint: {"x":0.30, "y":0.25}
+            on_release:
+                root.chlog(uname.text, pssw.text)
+                root.dismiss()
+
+<cont>:
+    title: 'Parking Info'
+    title_size: "20"
+    size_hint: (None, None)
+    size: (450, 550)
+
+    FloatLayout:
+        Label:
+            pos_hint: {"x":0, "y":0.1}
+            text: str(root.palist())
+            font_size: "20"
+
+
+<hist>:
+    title: 'Press the buton to cancel the latest reservation'
+    title_size: "18"
+    size_hint: (None, None)
+    size: (450, 550)
+
+    FloatLayout:
+        Label:
+            pos_hint: {"x":0, "y":0.30}
+            font_size: "17"
+            text: str(root.showhi())
+        Button:
+            text: "Cancel"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0, 0, 1)
+            size_hint: (0.2, 0.07)
+            pos_hint: {"x":0.4, "y":0.9}
+            on_release:
+                root.cancel()
+                root.dismiss()
+
+<reserv>:
+    title: 'Επιλέξτε είδος κράτησης'
+    title_size: "20"
+    size_hint: (None, None)
+    size: (450, 550)
+
+    FloatLayout:
+
+        Button:
+            text: "Προσωρινή"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0.56, 0.07, 1)
+            size_hint: (0.4, 0.1)
+            pos_hint: {"x":0.30, "y":0.5}
+            on_release:
+                root.printcre("temporary")
+                root.dismiss()
+
+        Button:
+            text: "Μηνιαία"
+            color: (0, 0, 0, 1)
+            background_normal: ''
+            background_color: (1, 0.56, 0.07, 1)
+            size_hint: (0.4, 0.1)
+            pos_hint: {"x":0.30, "y":0.25}
+            on_release:
+                root.printcre("monthly")
+                root.dismiss()
