@@ -1,0 +1,72 @@
+#-*- coding: utf-8 -*-
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Factory kivy.factory.Factory
+
+ScreenManagement:
+    HomeScreen:
+
+<HomeScreen>:
+    name: "home"
+
+    FloatLayout:
+        Image:
+            source: 'white.jpg'
+            color: (0.62, 0.62, 0.62, 1)
+            allow_stretch: True
+            size_hint_x: 1
+            size_hint_y: 1
+
+        Label:
+            text: "Εισάγετε το εισιτήριο στην ειδική σχισμή"
+            font_size: "20"
+            pos_hint: {"x":0.2, "y":0.4}
+
+        Image:
+            source: 'arr.png'
+            allow_stretch: True
+            size_hint_x: 0.1
+            size_hint_y: 0.1
+            pos_hint: {"x":0.85, "y":0.75}
+
+        Label:
+            text: "Αντίτιμο"
+            font_size: "20"
+            pos_hint: {"x":-0.3, "y":0.2}
+
+        TextInput:
+            id: price
+            text: "4$"
+            size_hint: 0.20, 0.07
+            pos_hint: {"x":0.10, "y":0.57}
+            multiline: False
+
+        Label:
+            text: "Εισάγετε το αντίτιμο στην ειδική σχισμή"
+            font_size: "20"
+            pos_hint: {"x":0.2, "y":0}
+
+        Image:
+            source: 'arr.png'
+            allow_stretch: True
+            size_hint_x: 0.1
+            size_hint_y: 0.1
+            pos_hint: {"x":0.85, "y":0.35}
+
+        Label:
+            text: "Επιλογή γλώσσας/Select language"
+            font_size: "20"
+            pos_hint: {"x":-0.2, "y":-0.2}
+
+        Image:
+            source: 'gr.png'
+            allow_stretch: True
+            size_hint_x: 0.14
+            size_hint_y: 0.14
+            pos_hint: {"x":0.2, "y":0.13}
+
+        Image:
+            source: 'eng.png'
+            allow_stretch: True
+            size_hint_x: 0.1
+            size_hint_y: 0.1
+            pos_hint: {"x":0.3, "y":0.15}
